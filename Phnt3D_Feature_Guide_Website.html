@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phnt3D Studio – Feature Guide</title>
+  <style>
+    :root {
+      --bg:        #0d0d0f;
+      --bg2:       #131317;
+      --bg3:       #1a1a20;
+      --bg4:       #202028;
+      --border:    #2a2a36;
+      --accent:    #4abde2;
+      --accent2:   #82d5f0;
+      --accent3:   #26a8d4;
+      --text:      #e8e8f0;
+      --muted:     #8888a0;
+      --tag-bg:    #0f1e28;
+      --tag-color: #82d5f0;
+      --nav-w:     260px;
+      --radius:    12px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Segoe UI',system-ui,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      display:flex;
+      min-height:100vh;
+    }
+
+    /* ── NAV ── */
+    nav{
+      position:fixed;top:0;left:0;
+      width:var(--nav-w);height:100vh;
+      background:var(--bg2);
+      border-right:1px solid var(--border);
+      overflow-y:auto;
+      padding:24px 0 40px;
+      z-index:100;
+    }
+    nav::-webkit-scrollbar{width:4px}
+    nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+    .nav-logo{
+      display:flex;align-items:center;gap:12px;
+      padding:0 20px 24px;
+      border-bottom:1px solid var(--border);
+      margin-bottom:16px;
+    }
+    .nav-logo img{width:36px;height:36px;border-radius:8px}
+    .nav-logo span{font-size:14px;font-weight:700;color:var(--accent2);letter-spacing:0.5px}
+
+    nav a{
+      display:block;
+      padding:7px 20px;
+      font-size:14px;color:var(--muted);
+      text-decoration:none;
+      border-left:2px solid transparent;
+      transition:all .18s;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+    nav a:hover,nav a.active{
+      color:var(--text);
+      border-left-color:var(--accent);
+      background:rgba(74,189,226,.08);
+    }
+    nav .nav-section{
+      font-size:10px;font-weight:700;
+      letter-spacing:1.5px;text-transform:uppercase;
+      color:var(--accent);
+      padding:16px 20px 4px;
+    }
+
+    /* ── MAIN ── */
+    main{
+      margin-left:var(--nav-w);
+      flex:1;
+      width:calc(100% - var(--nav-w));
+      padding:60px 48px 120px;
+      max-width:100%;
+    }
+
+    /* ── HERO ── */
+    .hero{
+      display:flex;align-items:center;gap:32px;
+      padding:48px 40px;
+      background:linear-gradient(135deg,#0c1e28 0%,#0a1820 60%,#070d12 100%);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      margin-bottom:56px;
+    }
+    .hero img{width:80px;height:80px;border-radius:16px;}
+    .hero h1{font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1.1}
+    .hero h1 span{color:var(--accent2)}
+    .hero p{margin-top:10px;color:var(--muted);font-size:16px;max-width:500px;line-height:1.6}
+    .hero-badges{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+    .badge{
+      font-size:11px;font-weight:600;
+      padding:4px 10px;border-radius:20px;
+      background:rgba(74,189,226,.15);
+      border:1px solid rgba(74,189,226,.3);
+      color:var(--accent2);
+    }
+
+    /* ── SECTION ── */
+    section{margin-bottom:72px}
+    .section-header{
+      display:flex;align-items:center;gap:14px;
+      margin-bottom:32px;
+    }
+    .section-number{
+      width:40px;height:40px;border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:flex;align-items:center;justify-content:center;
+      font-size:14px;font-weight:800;color:#fff;
+      flex-shrink:0;
+    }
+    .section-header h2{
+      font-size:22px;font-weight:700;
+      border-bottom:2px solid var(--accent);
+      padding-bottom:4px;
+    }
+
+    /* ── SUBSECTION ── */
+    .subsection{margin-bottom:36px}
+    .subsection h3{
+      font-size:15px;font-weight:700;
+      color:var(--accent3);
+      text-transform:uppercase;letter-spacing:0.6px;
+      margin-bottom:14px;
+      padding-left:12px;
+      border-left:3px solid var(--accent3);
+    }
+    .subsection p,.subsection li{
+      font-size:15px;color:#c0c0d0;line-height:1.8;
+    }
+    .subsection ul,.subsection ol{
+      padding-left:20px;margin-top:6px;
+    }
+    .subsection li{margin-bottom:4px}
+
+    /* ── CARDS GRID ── */
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+      gap:16px;
+    }
+    .card{
+      background:var(--bg3);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:20px;
+      transition:border-color .2s,transform .15s;
+    }
+    .card:hover{
+      border-color:var(--accent);
+      transform:translateY(-2px);
+    }
+    .card-icon{
+      width:48px;height:48px;border-radius:10px;
+      background:var(--bg4);
+      border:1px solid var(--border);
+      display:flex;align-items:center;justify-content:center;
+      margin-bottom:12px;overflow:hidden;
+    }
+    .card-icon img{width:30px;height:30px;object-fit:contain}
+    .card h4{font-size:15px;font-weight:700;margin-bottom:6px;color:var(--text)}
+    .card p{font-size:14px;color:var(--muted);line-height:1.6}
+    .card .shortcut{
+      display:inline-block;margin-top:10px;
+      font-size:11px;font-weight:700;
+      background:var(--bg4);border:1px solid var(--border);
+      color:var(--accent2);border-radius:6px;
+      padding:3px 8px;
+    }
+
+    /* ── BUTTON ROW ── */
+    .btn-row{
+      display:flex;flex-wrap:wrap;gap:12px;
+      margin-top:8px;
+    }
+    .btn-item{
+      display:flex;align-items:center;gap:10px;
+      background:var(--bg3);border:1px solid var(--border);
+      border-radius:10px;padding:10px 14px;
+      min-width:180px;
+      transition:border-color .2s;
+    }
+    .btn-item:hover{border-color:var(--accent2)}
+    .btn-item img{width:32px;height:32px;object-fit:contain;
+      background:var(--bg4);border-radius:8px;padding:4px;}
+    .btn-item-info{display:flex;flex-direction:column}
+    .btn-item-info strong{font-size:14px;color:var(--text)}
+    .btn-item-info span{font-size:12px;color:var(--muted);margin-top:2px}
+
+    /* ── SHORTCUT TABLE ── */
+    .shortcut-table{
+      width:100%;border-collapse:collapse;
+      font-size:15px;
+    }
+    .shortcut-table thead tr{
+      background:var(--bg4);
+    }
+    .shortcut-table th{
+      padding:12px 16px;text-align:left;
+      color:var(--accent2);font-size:12px;font-weight:700;
+      text-transform:uppercase;letter-spacing:1px;
+    }
+    .shortcut-table td{
+      padding:11px 16px;
+      border-bottom:1px solid var(--border);
+      color:#c0c0d0;
+    }
+    .shortcut-table tr:last-child td{border-bottom:none}
+    .shortcut-table tr:hover td{background:var(--bg3)}
+    .key{
+      display:inline-flex;align-items:center;justify-content:center;
+      background:var(--bg4);border:1px solid #3a3a4a;
+      border-bottom:3px solid #3a3a4a;
+      color:var(--text);font-size:12px;font-weight:700;
+      border-radius:6px;padding:2px 9px;min-width:30px;
+    }
+    .key-combo{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+    .key-sep{color:var(--muted);font-size:10px}
+
+    /* ── SHAPES GRID ── */
+    .shapes-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(110px,1fr));
+      gap:12px;
+    }
+    .shape-card{
+      background:var(--bg3);border:1px solid var(--border);
+      border-radius:var(--radius);
+      display:flex;flex-direction:column;align-items:center;
+      padding:18px 10px;gap:10px;
+      transition:border-color .2s,transform .15s;
+      cursor:default;
+    }
+    .shape-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+    .shape-card img{width:44px;height:44px;object-fit:contain}
+    .shape-card span{font-size:13px;font-weight:600;color:var(--text)}
+
+    /* ── EDITORS GRID ── */
+    .editors-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+      gap:12px;
+    }
+    .editor-card{
+      background:var(--bg3);border:1px solid var(--border);
+      border-radius:var(--radius);padding:16px;
+      display:flex;align-items:center;gap:12px;
+      transition:border-color .2s;
+    }
+    .editor-card:hover{border-color:var(--accent2)}
+    .editor-card img{
+      width:36px;height:36px;object-fit:contain;
+      background:var(--bg4);border-radius:8px;padding:4px;flex-shrink:0;
+    }
+    .editor-card-info strong{font-size:14px;color:var(--text);display:block}
+    .editor-card-info span{font-size:12px;color:var(--muted)}
+
+    /* ── NOTE BOX ── */
+    .note{
+      background:rgba(74,189,226,.06);
+      border:1px solid rgba(74,189,226,.25);
+      border-radius:10px;
+      padding:14px 18px;
+      font-size:14px;color:#a0d8ef;
+      margin-top:16px;line-height:1.6;
+    }
+    .note strong{color:var(--accent3)}
+
+    /* ── INFO BLOCK ── */
+    .info-block{
+      background:var(--bg3);border:1px solid var(--border);
+      border-radius:var(--radius);padding:20px 24px;
+      margin-bottom:16px;
+    }
+    .info-block h4{font-size:15px;font-weight:700;color:var(--accent2);margin-bottom:8px}
+    .info-block p,.info-block li{font-size:14px;color:#c0c0d0;line-height:1.75}
+    .info-block ul{padding-left:18px}
+
+    /* ── DIVIDER ── */
+    hr.dim{border:none;border-top:1px solid var(--border);margin:28px 0}
+
+    /* ── PLACEHOLDER CHIP ── */
+    .placeholder-chip{
+      display:inline-flex;align-items:center;gap:6px;
+      background:rgba(255,170,0,.12);border:1px solid rgba(255,170,0,.35);
+      color:#ffd080;font-size:11px;font-weight:700;
+      border-radius:20px;padding:3px 10px;margin-left:8px;vertical-align:middle;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+      nav{display:none}
+      main{margin-left:0;padding:32px 20px 80px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════ NAVIGATION ═══════════════════ -->
+<nav>
+  <div class="nav-logo">
+    <img src="https://i.ibb.co/LBYfrGq/Logo.png" alt="Logo">
+    <span>Phnt3D Studio</span>
+  </div>
+
+  <div class="nav-section">Overview</div>
+  <a href="#overview">Product Overview</a>
+  <a href="#ui">Core UI Areas</a>
+
+  <div class="nav-section">Workflows</div>
+  <a href="#files">File / Data Workflows</a>
+  <a href="#shapes">Shape Creation</a>
+  <a href="#transform">Transform Tools</a>
+  <a href="#selection">Selection System</a>
+  <a href="#clipboard">Clipboard & History</a>
+
+  <div class="nav-section">Advanced</div>
+  <a href="#objects">Object Actions</a>
+  <a href="#camera">Camera & Views</a>
+  <a href="#axis">Axis Toggles</a>
+  <a href="#manager">Object Manager</a>
+  <a href="#editors">Editors Panel</a>
+  <a href="#modals">Modals & Overlays</a>
+
+  <div class="nav-section">Reference</div>
+  <a href="#shortcuts">Keyboard Shortcuts</a>
+  <a href="#rules">Interaction Rules</a>
+</nav>
+
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<main>
+
+  <!-- HERO -->
+  <div class="hero" id="hero">
+    <img src="https://i.ibb.co/LBYfrGq/Logo.png" alt="Phnt3D Studio Logo">
+    <div>
+      <h1>Phnt3D <span>Studio</span></h1>
+      <p>Browser-based 3D modeling environment focused on fast primitive creation, keyboard-driven workflows, and node-based object management.</p>
+      <div class="hero-badges">
+        <span class="badge">v1.0 Alpha</span>
+        <span class="badge">Browser-Based</span>
+        <span class="badge">Three.js r0.154</span>
+        <span class="badge">.p3ds Format</span>
+        <span class="badge">OBJ Import/Export</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─── 1. OVERVIEW ─── -->
+  <section id="overview">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <h2>Product Overview</h2>
+    </div>
+    <div class="subsection">
+      <p style="font-size:15px;line-height:1.8;color:#c8c8dc;max-width:720px;">
+        Phnt3D Studio is a fully browser-based 3D modeling environment. It requires no installation —
+        open the HTML file and start building. The app is built around a central viewport, a left tool strip,
+        top dropdown menus, and a right Object Manager panel.
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:24px;font-size:15px;">
+        <div class="info-block">
+          <h4>Fast Primitive Creation</h4>
+          <p>One-click spawning of 8 primitive shapes directly into the viewport.</p>
+        </div>
+        <div class="info-block">
+          <h4>Immediate Transform Workflows</h4>
+          <p>Move, Rotate, Scale tools available instantly with keyboard shortcuts.</p>
+        </div>
+        <div class="info-block">
+          <h4>Node-Based Management</h4>
+          <p>Object Manager provides a node canvas for scene organisation, grouping and connections.</p>
+        </div>
+        <div class="info-block">
+          <h4>Project Save / Open</h4>
+          <p>Full project serialisation to <code style="color:var(--accent2)">.p3ds</code> files including camera, selection and node layout.</p>
+        </div>
+        <div class="info-block">
+          <h4>OBJ Import / Export</h4>
+          <p>Bring in external models and export finished work in OBJ format.</p>
+        </div>
+        <div class="info-block">
+          <h4>Keyboard-Driven Speed</h4>
+          <p>Nearly every tool is accessible by a single key for uninterrupted modeling.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── 2. CORE UI ─── -->
+  <section id="ui">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <h2>Core UI Areas</h2>
+    </div>
+
+    <div class="subsection">
+      <h3>2.1 Viewport (Center)</h3>
+      <p>Main 3D workspace where objects are displayed and edited. Supports both perspective and orthographic views. Shows transform gizmos (Move / Rotate / Scale) based on the active tool state. Objects are selected by raycasting against the scene.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>2.2 Top Bar</h3>
+      <p>Contains the primary menu system:</p>
+      <ul>
+        <li><strong>File</strong> — Open, Import OBJ, Save, Export menu</li>
+        <li><strong>Render, Settings, AI, Tools, 2D Animation, Textures, Help</strong> — additional menus present in the UI</li>
+        <li><strong>About</strong> — P3DS info, Credits, Updates</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <h3>2.3 Left Tool Strip</h3>
+      <p>Primary modeling controls displayed as icon buttons:</p>
+      <div class="btn-row" style="margin-top:16px;">
+        <div class="btn-item">
+          <img src="https://i.ibb.co/DggnJ354/Box-selection-lock-button.png" alt="">
+          <div class="btn-item-info"><strong>Box-Select Blocker</strong><span>Space to toggle</span></div>
+        </div>
+        <div class="btn-item">
+          <img src="https://i.ibb.co/fGK1mmXV/Box-selection-lock-button-02.png" alt="">
+          <div class="btn-item-info"><strong>Move Tool</strong><span>M key</span></div>
+        </div>
+        <div class="btn-item">
+          <img src="https://i.ibb.co/G4M16tGs/Artboard-1-2.png" alt="">
+          <div class="btn-item-info"><strong>Rotate Tool</strong><span>R key</span></div>
+        </div>
+        <div class="btn-item">
+          <img src="https://i.ibb.co/yckHWXSC/Artboard-1-3.png" alt="">
+          <div class="btn-item-info"><strong>Scale Tool</strong><span>S key</span></div>
+        </div>
+        <div class="btn-item">
+          <img src="https://i.ibb.co/SwD3sYwk/Artboard-1-4.png" alt="">
+          <div class="btn-item-info"><strong>All Tools</strong><span>A key</span></div>
+        </div>
+        <div class="btn-item">
+          <img src="https://i.ibb.co/vxb7ZVFL/Artboard-1-5.png" alt="">
+          <div class="btn-item-info"><strong>Group Objects</strong><span>via button</span></div>
+        </div>
+        <div class="btn-item">
+          <img src="https://i.ibb.co/WpPr8NPQ/Artboard-15-1.png" alt="">
+          <div class="btn-item-info"><strong>Join Objects</strong><span>via button</span></div>
+        </div>
+        <div class="btn-item">
+          <img src="https://i.ibb.co/PHWYxSq/Artboard-17-1.png" alt="">
+          <div class="btn-item-info"><strong>Focus On Object</strong><span>F key</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3>2.4 Right Side Panels</h3>
+      <ul>
+        <li><strong>Object Manager</strong> (functional) — node-based scene and object control area</li>
+        <li><strong>Properties Editor</strong> — currently a static placeholder visual panel</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ─── 3. FILES ─── -->
+  <section id="files">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <h2>File / Data Workflows</h2>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon" style="background:rgba(74,189,226,.15);">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="var(--accent)" d="M5 3h10l4 4v14H5V3z"/><path stroke="#fff" stroke-width="1.5" d="M14 3v5h5"/><path stroke="#fff" stroke-width="1.5" stroke-linecap="round" d="M8 13h8M8 17h5"/></svg>
+        </div>
+        <h4>Save Project</h4>
+        <p>Serialises the full scene to a <code style="color:var(--accent2)">.p3ds</code> JSON file — shapes, transforms, camera, tool state, selection and Object Manager layout.</p>
+        <span class="shortcut">File › Save</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(56,189,248,.1);">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="var(--accent3)" opacity=".3" d="M5 3h10l4 4v14H5V3z"/><path stroke="var(--accent3)" stroke-width="1.5" d="M14 3v5h5"/><path stroke="var(--accent3)" stroke-width="1.5" stroke-linecap="round" d="M12 10v7m-3-3 3 3 3-3"/></svg>
+        </div>
+        <h4>Open Project</h4>
+        <p>Loads a <code style="color:var(--accent3)">.p3ds</code> file. Prompts before overwriting the current scene, then fully reconstructs all state.</p>
+        <span class="shortcut">File › Open</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(74,189,226,.1);">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="var(--accent2)" opacity=".15"/><path stroke="var(--accent2)" stroke-width="1.5" stroke-linecap="round" d="M8 12h8M12 8v8"/></svg>
+        </div>
+        <h4>Import OBJ</h4>
+        <p>Parses <code style="color:var(--accent2)">.obj</code> geometry, builds a model group, adds edge lines, uses app-consistent gray material, selects imported object and pushes an undo entry.</p>
+        <span class="shortcut">File › Import</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(56,189,248,.08);">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3" fill="var(--accent3)" opacity=".15"/><path stroke="var(--accent3)" stroke-width="1.5" stroke-linecap="round" d="M12 16V8m-3 5 3 3 3-3"/></svg>
+        </div>
+        <h4>Export</h4>
+        <p>Exports to OBJ via browser Blob URL. Includes a <em>Selected Only</em> option. Additional export formats may be added in future builds.</p>
+        <span class="shortcut">File › Export</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── 4. SHAPES ─── -->
+  <section id="shapes">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <h2>Shape Creation System</h2>
+    </div>
+
+    <div class="subsection">
+      <h3>4.1 Available Primitives</h3>
+      <p style="margin-bottom:16px;">Click the <strong>Shapes</strong> button <img src="https://i.ibb.co/4xBxkJv/Artboard-43-2.png" style="width:22px;height:22px;vertical-align:middle;border-radius:4px;background:#222;padding:2px;margin:0 4px"> to open the panel and spawn any of the 8 primitives:</p>
+      <div class="shapes-grid">
+        <div class="shape-card"><img src="https://i.ibb.co/C3Qnw6PS/Artboard-43-2.png" alt="Cube"><span>Cube</span></div>
+        <div class="shape-card"><img src="https://i.ibb.co/Tx7vH4Zk/Artboard-43-3.png" alt="Plane"><span>Plane</span></div>
+        <div class="shape-card"><img src="https://i.ibb.co/VcvDcF03/Artboard-43-4.png" alt="Cylinder"><span>Cylinder</span></div>
+        <div class="shape-card"><img src="https://i.ibb.co/jvdjPjTs/Artboard-56.png" alt="Sphere"><span>Sphere</span></div>
+        <div class="shape-card"><img src="https://i.ibb.co/RkFxkrRX/Artboard-58.png" alt="Cone"><span>Cone</span></div>
+        <div class="shape-card"><img src="https://i.ibb.co/G4hc07b4/Artboard-58-1.png" alt="Torus"><span>Torus</span></div>
+        <div class="shape-card"><img src="https://i.ibb.co/rGBmY7Qs/Artboard-61.png" alt="Pyramid"><span>Pyramid</span></div>
+        <div class="shape-card"><img src="https://i.ibb.co/Q73J280W/Artboard-61-1.png" alt="Disc"><span>Disc</span></div>
+      </div>
+    </div>
+
+    <div class="subsection" style="margin-top:24px;">
+      <h3>4.2 Spawn Characteristics</h3>
+      <ul>
+        <li>New shapes are created as <strong>grouped objects</strong> containing a mesh and a LineSegments outline for edge visibility.</li>
+        <li>Default material is a consistent <em>gray modeling look</em> applied to all primitives.</li>
+        <li>Plane and Disc are spawned as flat-oriented surfaces; Torus and Pyramid have orientation corrections applied for visual consistency.</li>
+        <li>Spawned shape is immediately available for selection and transforms.</li>
+        <li>An Object Manager node is created and linked automatically for every spawned object.</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ─── 5. TRANSFORM ─── -->
+  <section id="transform">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <h2>Transform Tooling</h2>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">
+          <img src="https://i.ibb.co/fGK1mmXV/Box-selection-lock-button-02.png" alt="Move">
+        </div>
+        <h4>Move Tool</h4>
+        <p>Translates selected object(s) along constrained axes via a gizmo. A move indicator box is displayed during drag. Action recorded for undo on mouse-up.</p>
+        <span class="shortcut">M</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <img src="https://i.ibb.co/G4M16tGs/Artboard-1-2.png" alt="Rotate">
+        </div>
+        <h4>Rotate Tool</h4>
+        <p>Rotates selected object(s) via axis rings. Displays a live degree indicator. Supports smooth long-rotation with cumulative angle behaviour.</p>
+        <span class="shortcut">R</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <img src="https://i.ibb.co/yckHWXSC/Artboard-1-3.png" alt="Scale">
+        </div>
+        <h4>Scale Tool</h4>
+        <p>Scales selected object(s) using a gizmo. Switches into scale transform mode and updates gizmo state accordingly.</p>
+        <span class="shortcut">S</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <img src="https://i.ibb.co/SwD3sYwk/Artboard-1-4.png" alt="All Tools">
+        </div>
+        <h4>All Tools</h4>
+        <p>Combined editing mode for faster workflows — Move, Rotate and Scale available at once. Tool button visuals update to reflect the combined state.</p>
+        <span class="shortcut">A</span>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:20px;">
+      <strong>Tool Exclusivity:</strong> Rotate and Scale modes are managed as toggles. Activating one mode can disable exclusive alternatives. All Tools mode has its own independent toggle logic.
+    </div>
+  </section>
+
+
+  <!-- ─── 6. SELECTION ─── -->
+  <section id="selection">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <h2>Selection System</h2>
+    </div>
+
+    <div class="subsection">
+      <h3>6.1 Click Selection</h3>
+      <p>Single click on a viewport object selects it. Clicking empty space deselects the current selection.</p>
+    </div>
+    <div class="subsection">
+      <h3>6.2 Multi-Selection</h3>
+      <p><strong>Shift + Click</strong> toggles an object's membership in the current selection, supporting additive or subtractive workflows.</p>
+    </div>
+    <div class="subsection">
+      <h3>6.3 Box Selection Blocker</h3>
+      <div class="btn-row">
+        <div class="btn-item">
+          <img src="https://i.ibb.co/DggnJ354/Box-selection-lock-button.png" alt="">
+          <div class="btn-item-info"><strong>Box-Selection Blocker</strong><span>Toggle on/off via Space or button</span></div>
+        </div>
+      </div>
+      <p style="margin-top:12px;">Quickly enables or disables viewport box-selection behaviour. Button highlight reflects the current state.</p>
+    </div>
+    <div class="subsection">
+      <h3>6.4 Delete</h3>
+      <p><strong>Delete key</strong> removes selected shapes. If an Object Manager group container is selected, the container is removed first.</p>
+    </div>
+    <div class="subsection">
+      <h3>6.5 Selection / Transform Coupling</h3>
+      <p>Selection changes automatically recalculate gizmo visibility. Outline colours and selected states are kept in sync with the current selection array at all times.</p>
+    </div>
+  </section>
+
+
+  <!-- ─── 7. CLIPBOARD ─── -->
+  <section id="clipboard">
+    <div class="section-header">
+      <div class="section-number">7</div>
+      <h2>Clipboard &amp; History</h2>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h4>Copy</h4>
+        <p>Copies selected shapes or selected group container payload. Captures enough data for full paste reconstruction.</p>
+        <span class="shortcut">Ctrl + C</span>
+      </div>
+      <div class="card">
+        <h4>Cut</h4>
+        <p>Copies then removes selected shapes. The clipboard is cleared after paste (true cut semantics).</p>
+        <span class="shortcut">Ctrl + X</span>
+      </div>
+      <div class="card">
+        <h4>Paste</h4>
+        <p>Pastes shape or group container payloads. Pasted items are selected immediately and added to the undo stack.</p>
+        <span class="shortcut">Ctrl + V</span>
+      </div>
+      <div class="card">
+        <h4>Undo</h4>
+        <p>Steps back through an action stack covering Add, Remove, Move, Rotate, Scale, Join, and group container operations.</p>
+        <span class="shortcut">Ctrl + Z</span>
+      </div>
+      <div class="card">
+        <h4>Redo</h4>
+        <p>Reapplies undone actions. Two shortcut variants are supported.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+          <span class="shortcut">Ctrl + Y</span>
+          <span class="shortcut">Ctrl + Shift + Z</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── 8. ADVANCED OBJECTS ─── -->
+  <section id="objects">
+    <div class="section-header">
+      <div class="section-number">8</div>
+      <h2>Advanced Object Actions</h2>
+    </div>
+
+    <div class="subsection">
+      <h3>8.1 Group Objects</h3>
+      <div class="btn-row">
+        <div class="btn-item">
+          <img src="https://i.ibb.co/vxb7ZVFL/Artboard-1-5.png" alt="">
+          <div class="btn-item-info"><strong>Group Objects</strong><span>Creates an Object Manager group container from the current selection</span></div>
+        </div>
+      </div>
+      <p style="margin-top:12px;">Uses the current selection to create a group container in the Object Manager. The container can hold and represent grouped members in the node workspace. Group container operations are fully undoable.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>8.2 Join Objects</h3>
+      <div class="btn-row">
+        <div class="btn-item">
+          <img src="https://i.ibb.co/WpPr8NPQ/Artboard-15-1.png" alt="">
+          <div class="btn-item-info"><strong>Join Objects</strong><span>Requires 2+ selected objects</span></div>
+        </div>
+      </div>
+      <p style="margin-top:12px;">Merges selected geometry into one combined mesh/group. Removes original shapes and inserts the joined result. Rebuilds selection to the newly joined object. The join operation is tracked for undo/redo.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>8.3 Focus On Object</h3>
+      <div class="btn-row">
+        <div class="btn-item">
+          <img src="https://i.ibb.co/PHWYxSq/Artboard-17-1.png" alt="">
+          <div class="btn-item-info"><strong>Focus On Object</strong><span>F key or button</span></div>
+        </div>
+      </div>
+      <p style="margin-top:12px;">Animates the camera to focus on the selected target(s). Essential for quickly recentering the view within large or complex scenes.</p>
+    </div>
+  </section>
+
+
+  <!-- ─── 9. CAMERA ─── -->
+  <section id="camera">
+    <div class="section-header">
+      <div class="section-number">9</div>
+      <h2>Camera &amp; View Controls</h2>
+    </div>
+
+    <div class="subsection">
+      <h3>9.1 Perspective Navigation</h3>
+      <div class="cards" style="margin-top:12px;">
+        <div class="card"><h4>Orbit</h4><p>Rotate around the scene center.</p><span class="shortcut">Shift + LMB Drag</span></div>
+        <div class="card"><h4>Pan</h4><p>Move the camera laterally.</p><span class="shortcut">Shift + MMB Drag</span></div>
+        <div class="card"><h4>Zoom</h4><p>Zoom in and out.</p><span class="shortcut">Mouse Wheel</span></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3>9.2 Orthographic Views</h3>
+      <p style="margin-bottom:14px;">Press <span class="key">V</span> while hovering the viewport to open the view menu near the cursor. Choose from:</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <span class="badge" style="font-size:14px;padding:6px 14px;">Normal</span>
+        <span class="badge" style="font-size:14px;padding:6px 14px;">X View</span>
+        <span class="badge" style="font-size:14px;padding:6px 14px;">Y View</span>
+        <span class="badge" style="font-size:14px;padding:6px 14px;">Z View</span>
+      </div>
+      <div class="note" style="margin-top:14px;">In orthographic mode, panning uses Middle Mouse Drag and zoom modifies the orthographic zoom factor. Tool visuals adapt accordingly. Press <strong>ESC</strong> to dismiss the view menu.</div>
+    </div>
+  </section>
+
+
+  <!-- ─── 10. AXIS ─── -->
+  <section id="axis">
+    <div class="section-header">
+      <div class="section-number">10</div>
+      <h2>Axis Visibility Toggles</h2>
+    </div>
+    <p style="margin-bottom:18px;color:#c0c0d0;">Three independent toggle buttons let you show or hide each world axis helper and its labels — useful for decluttering the scene while modeling.</p>
+    <div class="btn-row">
+      <div class="btn-item">
+        <img src="https://i.ibb.co/svfsVy4Q/Artboard-43-6.png" alt="">
+        <div class="btn-item-info"><strong>X Axis Toggle</strong><span>Show / hide X axis helper</span></div>
+      </div>
+      <div class="btn-item">
+        <img src="https://i.ibb.co/MkyrZhdv/Artboard-43-7.png" alt="">
+        <div class="btn-item-info"><strong>Y Axis Toggle</strong><span>Show / hide Y axis helper</span></div>
+      </div>
+      <div class="btn-item">
+        <img src="https://i.ibb.co/wZCJnq3r/Artboard-43-8.png" alt="">
+        <div class="btn-item-info"><strong>Z Axis Toggle</strong><span>Show / hide Z axis helper</span></div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:16px;">Button visual style reflects the on/off state. Axis visibility feeds into gizmo and label update logic where relevant.</div>
+  </section>
+
+
+  <!-- ─── 11. OBJECT MANAGER ─── -->
+  <section id="manager">
+    <div class="section-header">
+      <div class="section-number">11</div>
+      <h2>Object Manager (Node Workspace)</h2>
+    </div>
+
+    <div class="subsection">
+      <h3>11.1 What it is</h3>
+      <p>A node-based control panel for scene objects. Sits on the right side of the app. It is a first-class workflow area — not just a scene list — supporting connections, grouping, and hierarchy operations.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>11.2 Node Features</h3>
+      <ul>
+        <li>One node per object in the scene</li>
+        <li>Node labels with type display</li>
+        <li>Drag to reposition nodes freely in the manager canvas</li>
+        <li>Inline rename flow for node titles</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <h3>11.3 Box Select in Manager</h3>
+      <p>Drag-select multiple nodes directly inside the manager canvas. Hold <strong>Shift</strong> for additive selection. Selection is synchronised bi-directionally with the viewport.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>11.4 Group Containers</h3>
+      <p>Visual grouping rectangles with a title and colour controls. Can be selected, moved, and resized. All container operations support full undo/redo.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>11.5 Connection Systems</h3>
+      <p>The manager supports multiple connection/state categories:</p>
+      <ul>
+        <li>Visibility-related links</li>
+        <li>Parent / child hierarchy links</li>
+        <li>Port-based connections</li>
+        <li>Editor connections</li>
+        <li>Connect / disconnect operations with undo/redo</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <h3>11.6 Visibility Node</h3>
+      <p>Press <span class="key">Tab</span> while hovering the Object Manager area. If a visibility node does not yet exist, the app creates one automatically.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>11.7 Manager Persistence</h3>
+      <p>The full manager layout and node state is saved to and loaded from <code style="color:var(--accent2)">.p3ds</code> project files.</p>
+    </div>
+  </section>
+
+
+  <!-- ─── 12. EDITORS ─── -->
+  <section id="editors">
+    <div class="section-header">
+      <div class="section-number">12</div>
+      <h2>Editors Panel</h2>
+    </div>
+
+    <p style="margin-bottom:18px;color:#c0c0d0;">
+      Click the <strong>Editors</strong> button
+      <img src="https://i.ibb.co/1f7JK7Nt/Artboard-30-3.png" style="width:22px;height:22px;vertical-align:middle;border-radius:4px;background:#222;padding:2px;margin:0 4px">
+      to open the editing tools panel. Each editor targets a specific mesh-deformation operation.
+      <span class="placeholder-chip">⚠ Placeholder in Alpha</span>
+    </p>
+
+    <div class="editors-grid">
+      <div class="editor-card">
+        <img src="https://i.ibb.co/1f7JK7Nt/Artboard-30-3.png" alt="Expand">
+        <div class="editor-card-info"><strong>Expand</strong><span>Scale mesh outward uniformly</span></div>
+      </div>
+      <div class="editor-card">
+        <img src="https://i.ibb.co/Fd4Mc9n/Artboard-30.png" alt="Mirror">
+        <div class="editor-card-info"><strong>Mirror</strong><span>Mirror geometry across an axis</span></div>
+      </div>
+      <div class="editor-card">
+        <img src="https://i.ibb.co/PZmSVqqR/Artboard-30-1.png" alt="Boolean">
+        <div class="editor-card-info"><strong>Boolean</strong><span>Union, subtract or intersect</span></div>
+      </div>
+      <div class="editor-card">
+        <img src="https://i.ibb.co/sv4f64F2/Artboard-30-2.png" alt="Twist">
+        <div class="editor-card-info"><strong>Twist</strong><span>Twist mesh along an axis</span></div>
+      </div>
+      <div class="editor-card">
+        <img src="https://i.ibb.co/BVNPFW2k/Artboard-35-1.png" alt="Subdivide">
+        <div class="editor-card-info"><strong>Subdivide</strong><span>Increase mesh density</span></div>
+      </div>
+      <div class="editor-card">
+        <img src="https://i.ibb.co/0jptWKWB/Artboard-37-1.png" alt="Array">
+        <div class="editor-card-info"><strong>Array</strong><span>Duplicate along a path or axis</span></div>
+      </div>
+      <div class="editor-card">
+        <img src="https://i.ibb.co/m5dXtmGN/Artboard-37-2.png" alt="Fracture">
+        <div class="editor-card-info"><strong>Fracture</strong><span>Break mesh into fragments</span></div>
+      </div>
+      <div class="editor-card">
+        <img src="https://i.ibb.co/RT4bd9wH/Artboard-37-3.png" alt="Bend">
+        <div class="editor-card-info"><strong>Bend</strong><span>Bend mesh over a curve</span></div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:18px;">
+      <strong>Alpha Note:</strong> UI buttons and tooltips for all editors are present, but the underlying mesh-editing operations are currently placeholders and are not yet fully active in this build branch.
+    </div>
+  </section>
+
+
+  <!-- ─── 13. MODALS ─── -->
+  <section id="modals">
+    <div class="section-header">
+      <div class="section-number">13</div>
+      <h2>Modals &amp; Overlays</h2>
+    </div>
+    <div class="cards">
+      <div class="card"><h4>About Modal</h4><p>General app information, version and project description.</p></div>
+      <div class="card"><h4>Credits Modal</h4><p>Lists contributors and testers.</p></div>
+      <div class="card"><h4>Updates Modal</h4><p>Changelog timeline with version entries.</p></div>
+      <div class="card"><h4>Export Menu</h4><p>Format selection and export confirmation overlay, including Selected Only option.</p></div>
+    </div>
+    <div class="note" style="margin-top:16px;"><strong>ESC key</strong> closes dropdowns and active modal/export overlays based on the current context.</div>
+  </section>
+
+
+  <!-- ─── 14. SHORTCUTS ─── -->
+  <section id="shortcuts">
+    <div class="section-header">
+      <div class="section-number">14</div>
+      <h2>Keyboard Shortcut Reference</h2>
+    </div>
+
+    <table class="shortcut-table">
+      <thead>
+        <tr><th>Key</th><th>Action</th><th>Context</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="key-combo"><span class="key">M</span></div></td>
+          <td>Move tool toggle</td><td>Viewport hover</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">R</span></div></td>
+          <td>Rotate tool toggle</td><td>Viewport hover</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">S</span></div></td>
+          <td>Scale tool toggle</td><td>Viewport hover</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">A</span></div></td>
+          <td>All Tools toggle</td><td>Viewport hover</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">V</span></div></td>
+          <td>Open view menu at cursor</td><td>Viewport hover</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">Space</span></div></td>
+          <td>Toggle box-selection blocker</td><td>Viewport hover</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">F</span></div></td>
+          <td>Focus camera on selected object(s)</td><td>General</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">Del</span></div></td>
+          <td>Delete selected object(s) or manager container</td><td>General</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">Tab</span></div></td>
+          <td>Ensure visibility node exists in Object Manager</td><td>Manager hover</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">Ctrl</span><span class="key-sep">+</span><span class="key">C</span></div></td>
+          <td>Copy selected shapes or group container</td><td>General</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">Ctrl</span><span class="key-sep">+</span><span class="key">X</span></div></td>
+          <td>Cut selected shapes</td><td>General</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">Ctrl</span><span class="key-sep">+</span><span class="key">V</span></div></td>
+          <td>Paste copied/cut content</td><td>General</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">Ctrl</span><span class="key-sep">+</span><span class="key">Z</span></div></td>
+          <td>Undo</td><td>General</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">Ctrl</span><span class="key-sep">+</span><span class="key">Y</span></div></td>
+          <td>Redo</td><td>General</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">Ctrl</span><span class="key-sep">+</span><span class="key">Shift</span><span class="key-sep">+</span><span class="key">Z</span></div></td>
+          <td>Redo (alternate)</td><td>General</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">ESC</span></div></td>
+          <td>Close dropdowns / modals / export menu</td><td>General</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">Shift</span><span class="key-sep">+</span><span style="color:#c0c0d0;font-size:12px">LMB Drag</span></div></td>
+          <td>Orbit camera (perspective)</td><td>Viewport</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span class="key">Shift</span><span class="key-sep">+</span><span style="color:#c0c0d0;font-size:12px">MMB Drag</span></div></td>
+          <td>Pan camera</td><td>Viewport</td>
+        </tr>
+        <tr>
+          <td><div class="key-combo"><span style="color:#c0c0d0;font-size:12px">Scroll Wheel</span></div></td>
+          <td>Zoom</td><td>Viewport</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- ─── 15. RULES ─── -->
+  <section id="rules">
+    <div class="section-header">
+      <div class="section-number">15</div>
+      <h2>Interaction Rules &amp; Conditions</h2>
+    </div>
+
+    <div class="subsection">
+      <p>Many shortcuts are intentionally context-sensitive to prevent accidental actions:</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:8px;">
+      <div class="info-block">
+        <h4>Input Field Guard</h4>
+        <p>Tool shortcuts (M, R, S, A, V, Space, F) are ignored while any <code>input</code>, <code>textarea</code> or <code>contenteditable</code> element has focus — so typing object names won't accidentally switch tools.</p>
+      </div>
+      <div class="info-block">
+        <h4>Viewport Hover Requirement</h4>
+        <p>Several shortcuts only fire when the mouse cursor is inside the viewport area, preventing unintended activations while interacting with panels or menus.</p>
+      </div>
+      <div class="info-block">
+        <h4>UI Overlap Checks</h4>
+        <p>Logic prevents accidental tool activation when the cursor is positioned over menus, dropdowns, or toolbar buttons.</p>
+      </div>
+      <div class="info-block">
+        <h4>Separate Interaction Zones</h4>
+        <p>Viewport interactions (gizmos, click-select, camera) and Object Manager interactions (node drag, box-select, rename) are handled by separate logic contexts that don't interfere with each other.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <div style="margin-top:80px;padding-top:32px;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:13px;">
+    <img src="https://i.ibb.co/LBYfrGq/Logo.png" style="width:28px;border-radius:6px;vertical-align:middle;margin-right:8px;">
+    Phnt3D Studio — Feature Guide &nbsp;·&nbsp; v1.0 Alpha &nbsp;·&nbsp; Three.js r0.154
+  </div>
+
+</main>
+
+<script>
+  // Highlight active nav link on scroll
+  const sections = document.querySelectorAll('section[id], .hero');
+  const links = document.querySelectorAll('nav a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, {rootMargin:'-30% 0px -60% 0px'});
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
